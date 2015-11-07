@@ -16,7 +16,7 @@ bower install ng-syncano --save
 Bower will install Syncano - simply include in your project like this:
 
 ```html
-<script src="path/to/bower_components/ng-syncano/dist//ng-syncano.min.js"></script>
+<script src="path/to/bower_components/ng-syncano/dist/ng-syncano.min.js"></script>
 ```
 
 **Install from NPM**
