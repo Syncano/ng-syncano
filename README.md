@@ -1,6 +1,6 @@
 # ng-syncano
 
-[![NPM](https://img.shields.io/npm/v/syncano.svg)](https://www.npmjs.com/package/ng-syncano)
+[![NPM](https://img.shields.io/npm/v/ng-syncano.svg)](https://www.npmjs.com/package/ng-syncano)
 
 ## Getting Started
 This library is intended to be used with a [Syncano](http://www.syncano.io/) account. If you don't already have one - you can sign up [here](https://dashboard.syncano.io/?utm_source=ng-syncano&utm_medium=readme&utm_campaign=github).
