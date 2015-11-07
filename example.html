@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+<meta charset="utf-8">
+<title>Example</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.js"></script>
+<script src="./dist/ng-syncano.js"></script>
+
+<script> 
+var myApp = angular.module('myApp', [
+	'ngSyncano' // IMORTANT: syncano library should be registered in Angular DI
+	]);
+	
+// configure connection to Syncano
+// myApp.config(function (syncanoServiceProvider) {
+// 		syncanoServiceProvider.configure({
+// 			accountKey: 'MY_ACCOUNT_KEY'
+// 		});
+// 	});
+
+// or
+myApp.config(function (syncanoServiceProvider) {
+		syncanoServiceProvider.configure({
+			apiKey: 'MY_INSTANCE_KEY',
+			instance: 'MY_INSTANCE_NAME'
+		});
+	});
+// NOTICE: please be aware that only first configuration would be applied
+
+myApp.controller('SyncanoController', function ($scope, syncanoService) {
+		$scope.dataRetrievedFromSyncano = null;
+		$scope.error = null;
+		
+		syncanoService.detail()
+			.then(function(res){
+				$scope.dataRetrievedFromSyncano = res;
+			})
+			.catch(function(err){
+				$scope.error = err;
+			});
+	});
+</script>
+</head>
+
+<body ng-app="myApp">
+	<div ng-controller="SyncanoController">
+		<div ng-if="error !== null" class="error">{{error.message}}</div>
+		<div ng-if="dataRetrievedFromSyncano !== null" class="data">{{dataRetrievedFromSyncano | json}}</div>
+	</div>
+</body>
+</html>
