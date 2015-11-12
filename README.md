@@ -5,7 +5,9 @@
 ## Getting Started
 Using our Angular Service is simple! After you set it up, you'll be able to use Syncano API calls within Angular without having to import `syncano.js` anywhere else in your code.
 
-This library is intended to be used with a [Syncano](http://www.syncano.io/) account. If you don't already have one - you can sign up [here](https://dashboard.syncano.io/?utm_source=ng-syncano&utm_medium=readme&utm_campaign=github).
+If this is your first time using Angular, please take a look at our blog post <a href="https://www.syncano.io/blog/intro-angular-js/?utm_source=github&utm_medium=readme&utm_campaign=syncano-js" target="_blank">Intro to Angular.js</a> or the <a href="https://angularjs.org/#the-basics">AngularJS</a> homepage.
+
+This library is intended to be used with a [Syncano](http://www.syncano.io/?utm_source=github&utm_medium=readme&utm_campaign=syncano-js) account. If you don't already have one - you can sign up [here](https://dashboard.syncano.io/?utm_source=ng-syncano&utm_medium=readme&utm_campaign=github).
 
 **Install from Bower**
 
@@ -91,7 +93,7 @@ Here is an example one that goes well with the `list()` API call we used in the 
 
 You would include this code in either your `view` or inbetween your `index.html` `<body>` tag, depending on how your Angular app is set up!
 
-Look <a href="http://docs.syncano.io/" target="_blank">here</a> for more examples on our JS Library API calls.
+Look <a href="http://docs.syncano.io/?utm_source=github&utm_medium=readme&utm_campaign=syncano-js" target="_blank">here</a> for more examples on our JS Library API calls.
 
 For more details see `example.html` in this repo.
 
