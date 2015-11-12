@@ -5,9 +5,9 @@
 ## Getting Started
 Using our Angular Service is simple! After you set it up, you'll be able to use Syncano API calls within Angular without having to import `syncano.js` anywhere else in your code.
 
-If this is your first time using Angular, please take a look at our blog post <a href="https://www.syncano.io/blog/intro-angular-js/?utm_source=github&utm_medium=readme&utm_campaign=syncano-js" target="_blank">Intro to Angular.js</a> or the <a href="https://angularjs.org/#the-basics">AngularJS</a> homepage.
+If this is your first time using Angular, please take a look at our blog post <a href="https://www.syncano.io/blog/intro-angular-js/?utm_source=github&utm_medium=readme&utm_campaign=ng-syncano" target="_blank">Intro to Angular.js</a> or the <a href="https://angularjs.org/#the-basics">AngularJS</a> homepage.
 
-This library is intended to be used with a [Syncano](http://www.syncano.io/?utm_source=github&utm_medium=readme&utm_campaign=syncano-js) account. If you don't already have one - you can sign up [here](https://dashboard.syncano.io/?utm_source=ng-syncano&utm_medium=readme&utm_campaign=github).
+This library is intended to be used with a [Syncano](http://www.syncano.io/?utm_source=github&utm_medium=readme&utm_campaign=ng-syncano) account. If you don't already have one - you can sign up [here](https://dashboard.syncano.io/?utm_source=github&utm_medium=readme&utm_campaign=ng-syncano).
 
 **Install from Bower**
 
