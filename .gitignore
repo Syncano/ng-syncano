@@ -1,6 +1,7 @@
 # User Added #
 ##############
 .idea
+master-example.html
 node_modules
 
 # Compiled source #

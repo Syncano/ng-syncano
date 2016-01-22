@@ -60,6 +60,16 @@ module.exports = angular.module('ngSyncano', [])
 
             getSyncano: function() {
                 return syncanoObj;
+            },
+
+            removeSyncanoUser: function(){
+                var syncano = syncanoConfig.Syncano;
+
+                if (syncano.config.userKey){
+                    delete syncano.config.userKey;
+                }
+
+                return "You have logged out.";
             }
         }
     });
