@@ -3,7 +3,7 @@
 
 <head>
 <meta charset="utf-8">
-<title>Example</title>
+<title>ngSyncano Example</title>
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.js"></script>
 <script src="./dist/ng-syncano.js"></script>
@@ -37,24 +37,28 @@ myApp.controller('SyncanoController', function ($scope, syncanoService) {
 		.then(function(res){ // uses promises in case a userKey is needed
 			syncano = res; // set to current Syncano Object
 
-			// Below shows how to declare a user mid-app
-			/*var user = {
-				"username": "USERNAME",
-				"password": "PASSWORD"
-			};
-			syncanoService.setSyncanoUser(user)
-				.then(function(res){
-					syncano = res;
-					getList();
-				})
-				.catch(function(err){
-					console.log(err);
-				});
-			*/
-		})
-		.catch(function(err){
-			console.log(err);
-		});
+                getList(); // ONLY WORKS if you have permissions set
+
+                /* TO REMOVE A USER */
+                //syncanoService.removeSyncanoUser(); // returns string if need be
+
+                /* TO LOG IN */
+                //var user = {
+                 //"username": "USERNAME",
+                 //"password": "PASSWORD"
+                //};
+                //syncanoService.setSyncanoUser(user)
+                    //.then(function(res){
+                        //syncano = res;
+                        //getList();
+                    //})
+                    //.catch(function(err){
+                        //console.log(err);
+                    //});
+            })
+            .catch(function(err){
+                console.log(err);
+            });
 
 	function getList(){ // can only be used with apiKey/userKey or accountKey
 		syncano.class('CLASS').dataobject().list()

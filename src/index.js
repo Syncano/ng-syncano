@@ -6,7 +6,7 @@ var syncanoConfig = require('./syncano-config');
 module.exports = angular.module('ngSyncano', [])
     .factory('syncano', Syncano)
     .provider('syncanoConfig', syncanoConfig)
-    .service('syncanoService', function(syncanoConfig){
+    .service('syncanoService', ['syncanoConfig', function(syncanoConfig){
 
         var syncanoObj = setSyncano();
 
@@ -72,4 +72,4 @@ module.exports = angular.module('ngSyncano', [])
                 return "You have logged out.";
             }
         }
-    });
+    }]);
