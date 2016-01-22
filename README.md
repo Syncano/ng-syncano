@@ -99,9 +99,11 @@ For more details see `example.html` in this repo.
 
 ### Contributors
 
+* Devin Visslailli - [twitter](https://twitter.com/devinviss), [github](https://github.com/devinviss)
 * Kelly Andrews  - [twitter](https://twitter.com/kellyjandrews), [github](https://github.com/kellyjandrews)
-* Devin Visslailli - [twitter](https://twitter.com/devinviss), [github](https://github.com/devintyler)
 
 ### Change Log
+* **2.0.0** - 2016-01-22
+    * Gives user ability to add User Keys
 * **1.0.0** - 2015-11-07
     * Initial Release

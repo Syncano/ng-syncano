@@ -8,27 +8,37 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.js"></script>
 <script src="./dist/ng-syncano.js"></script>
 
-<script> 
-var myApp = angular.module('myApp', ['ngSyncano']); // IMPORTANT: syncano library should be registered in Angular DI
+<script> // REMEMBER: Replace Syncano User details = apiKey, instance, and class (user details optional)
+var myApp = angular.module('myApp', ['ngSyncano']);
 
-// OR
-myApp.config(function (syncanoConfigProvider) {
-	syncanoConfigProvider.configure({
+myApp.config(function (syncanoConfigProvider) { // NOTICE: please be aware that only first configuration would be applied
+	syncanoConfigProvider.configure({ // enter Syncano details
 		apiKey: 'MY_PUBLIC_API_KEY',
 		instance: 'MY_INSTANCE'
+		// username: 'USERNAME', // you can enter your username and password in the config to get the userKey
+		// password: 'PASSWORD'
 	});
+
+	// You can also use your account key, but then your API calls in the controllers
+	// will need to include the .instance('MY_INSTANCE') call AFTER syncano
+	// syncanoConfigProvider.configure({
+	//	accountKey: 'MY_ACCOUNT_KEY'
+	// });
 });
-// NOTICE: please be aware that only first configuration would be applied
 
 myApp.controller('SyncanoController', function ($scope, syncanoService) {
-	var syncano = null;
+
+	var syncano = null; // will be used for API calls
+
 	$scope.dataRetrievedFromSyncano = null;
 	$scope.error = null;
 
-	syncanoService.getSyncano()
-		.then(function(res){
-			syncano = res;
-			var user = {
+	syncanoService.getSyncano() // gets the current Syncano object (see config above)
+		.then(function(res){ // uses promises in case a userKey is needed
+			syncano = res; // set to current Syncano Object
+
+			// Below shows how to declare a user mid-app
+			/*var user = {
 				"username": "USERNAME",
 				"password": "PASSWORD"
 			};
@@ -40,12 +50,13 @@ myApp.controller('SyncanoController', function ($scope, syncanoService) {
 				.catch(function(err){
 					console.log(err);
 				});
+			*/
 		})
 		.catch(function(err){
 			console.log(err);
 		});
 
-	function getList(){
+	function getList(){ // can only be used with apiKey/userKey or accountKey
 		syncano.class('CLASS').dataobject().list()
 			.then(function(res){
 				$scope.dataRetrievedFromSyncano = res.objects;
