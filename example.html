@@ -9,38 +9,52 @@
 <script src="./dist/ng-syncano.js"></script>
 
 <script> 
-var myApp = angular.module('myApp', [
-	'ngSyncano' // IMORTANT: syncano library should be registered in Angular DI
-	]);
-	
-// configure connection to Syncano
-// myApp.config(function (syncanoServiceProvider) {
-// 		syncanoServiceProvider.configure({
-// 			accountKey: 'MY_ACCOUNT_KEY'
-// 		});
-// 	});
+var myApp = angular.module('myApp', ['ngSyncano']); // IMPORTANT: syncano library should be registered in Angular DI
 
-// or
-myApp.config(function (syncanoServiceProvider) {
-		syncanoServiceProvider.configure({
-			apiKey: 'MY_INSTANCE_KEY',
-			instance: 'MY_INSTANCE_NAME'
-		});
+// OR
+myApp.config(function (syncanoConfigProvider) {
+	syncanoConfigProvider.configure({
+		apiKey: 'MY_PUBLIC_API_KEY',
+		instance: 'MY_INSTANCE'
 	});
+});
 // NOTICE: please be aware that only first configuration would be applied
 
 myApp.controller('SyncanoController', function ($scope, syncanoService) {
-		$scope.dataRetrievedFromSyncano = null;
-		$scope.error = null;
-		
-		syncanoService.detail()
+	var syncano = null;
+	$scope.dataRetrievedFromSyncano = null;
+	$scope.error = null;
+
+	syncanoService.getSyncano()
+		.then(function(res){
+			syncano = res;
+			var user = {
+				"username": "USERNAME",
+				"password": "PASSWORD"
+			};
+			syncanoService.setSyncanoUser(user)
+				.then(function(res){
+					syncano = res;
+					getList();
+				})
+				.catch(function(err){
+					console.log(err);
+				});
+		})
+		.catch(function(err){
+			console.log(err);
+		});
+
+	function getList(){
+		syncano.class('CLASS').dataobject().list()
 			.then(function(res){
-				$scope.dataRetrievedFromSyncano = res;
+				$scope.dataRetrievedFromSyncano = res.objects;
 			})
 			.catch(function(err){
 				$scope.error = err;
 			});
-	});
+	}
+});
 </script>
 </head>
 

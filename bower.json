@@ -3,6 +3,7 @@
   "description": "An angular wrapper to intereact with the Syncano API.",
   "main": "dist/ng-syncano.min.js",
   "authors": [
+    "Devin Visslailli",
     "Kelly J Andrews"
   ],
   "license": "ISC",
