@@ -3,6 +3,7 @@
 [![NPM](https://img.shields.io/npm/v/ng-syncano.svg)](https://www.npmjs.com/package/ng-syncano)
 
 ## Getting Started
+
 Using our Angular Service is simple! After you set it up, you'll be able to use Syncano API calls within Angular without having to import `syncano.js` anywhere else in your code.
 
 If this is your first time using Angular, please take a look at our blog post <a href="https://www.syncano.io/blog/intro-angular-js/?utm_source=github&utm_medium=readme&utm_campaign=ng-syncano" target="_blank">Intro to Angular.js</a> or the <a href="https://angularjs.org/#the-basics">AngularJS</a> homepage.
@@ -43,59 +44,89 @@ Next you'll need to set up the config part of your app, so that Syncano knows wh
 
 In that same `app.js` file, put the following code:
 
-```
-myApp.config(function (syncanoServiceProvider) {
-        syncanoServiceProvider.configure({
-            apiKey: 'APIKEY/ACCOUNTKEY',
-            instance: 'INSTANCE'
-        });
+```javascript
+myApp.config(function (syncanoConfigProvider) {
+    syncanoConfigProvider.configure({
+        apiKey: 'APIKEY/ACCOUNTKEY',
+        instance: 'INSTANCE'
     });
+});
 ```
 
 *Be aware that if you use more than one config for ngSyncano, only the first one will be used!*
+
+### Config with a User Key
+
+Most API calls will require more authentication or a higher level API key. The one we suggest using for your public app is a public API key. This key will need a user key to provide you with access to more permissions and API calls.
+
+We have set up the ngSyncano library so you can start your app with a `username` and `password`. The code below shows you how!
+
+```javascript
+myApp.config(function (syncanoConfigProvider) {
+	  syncanoConfigProvider.configure({ // enter Syncano details
+		    apiKey: 'MY_PUBLIC_API_KEY',
+		    instance: 'MY_INSTANCE'
+		    username: 'USERNAME',
+		    password: 'PASSWORD'
+	  });
+});
+```
+
+**This would replace your original config function!**
 
 ## Using the `syncanoService` In Your Controller
 
 After you have completely set up the config for ngSyncano in your app, you will need to inject the Syncano Service into your controller.
 
-To use the Syncano API calls in your Angular controller, just include `syncanoService` in the `function` section of your controller. Then use `syncanoService` in front of your API calls as seen here:
+To use the Syncano API calls in your Angular controller, just include `syncanoService` in the `function` section of your controller. The `syncanoService` will allow you to do a few things:
 
-```
+1. Get the current Syncano object (global)
+2. Add a User Key
+3. Remove a User Key
+
+Then you just use the regular JS Library API calls to perform the rest of your Syncano API calls.
+
+```javascript
 myApp.controller('SyncanoController', function ($scope, syncanoService) {
-        $scope.dataList = null;
-        $scope.error = null;
+	var syncano = null; // will be used for API calls
+	$scope.dataRetrievedFromSyncano = null;
+	$scope.error = null;
 
-        syncanoService.class('CLASS').dataobject().list()
-            .then(function(res){
-                // load the array of data objects into dataList
-                $scope.dataList = res.objects;
-            })
-            .catch(function(err){
-                $scope.error = err;
-            });
-    });
+	syncanoService.getSyncano() // gets the current Syncano object
+		.then(function(res){ // uses promises
+			syncano = res; // set to current Syncano Object
+			
+			/* TO REMOVE A USER */
+			//syncanoService.removeSyncanoUser(); // returns string
+
+			/* TO LOG IN */
+			//var user = {
+				//"username": "USERNAME",
+				//"password": "PASSWORD"
+			//};
+			//syncanoService.setSyncanoUser(user)
+				//.then(function(res){
+					//syncano = res;
+				//})
+				//.catch(function(err){
+					//console.log(err);
+				//});
+		})
+    .catch(function(err){
+			console.log(err);
+		});
+});
 ```
 
-The `syncanoService` object will contain all of your API details, so you won't need to type them in again. Once you have imported `syncanoService` and have used it for an API call, the last step is to display it in the DOM or `html` page.
+The `syncano` object will contain all of your API details, so you won't need to type them in again. You'll notice that the `getSyncano()` call expects a promise. This is done so that you can choose to either include user info at the beginning, or leave them out, but the library will always send a promise back.
 
-Here is an example one that goes well with the `list()` API call we used in the controller example:
+>**Note: All functions needing Syncano data will need to be called in the `.then()` of the `getSyncano()` call! This is because that call is asynchronous.**
 
-```
-<div ng-controller="SyncanoController">
-    <div ng-if="error !== null" class="error"><p>{{error.message}}</p></div>
-    <div ng-if="dataList !== null" class="data">
-        <ul ng-repeat="data in dataList">
-            <li>{{data.id}}</li>
-        </ul>
-    </div>
-</div>
-```
+### **For more details see `example.html` in this repo.**
 
-You would include this code in either your `view` or inbetween your `index.html` `<body>` tag, depending on how your Angular app is set up!
+Once you have imported `syncanoService` and have used it for an API call, the last step is to display it in the DOM or `html` page! That's where you get creative ;)
 
 Look <a href="http://docs.syncano.io/?utm_source=github&utm_medium=readme&utm_campaign=syncano-js" target="_blank">here</a> for more examples on our JS Library API calls.
-
-For more details see `example.html` in this repo.
 
 ### Contributors
 
