@@ -1,13 +1,13 @@
 {
   "name": "ng-syncano",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "An angular wrapper to intereact with the Syncano API.",
   "main": "index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/Syncano/ng-syncano.git"
   },
-  "author": "Kelly J Andrews",
+  "author": "Devin Visslailli",
   "license": "ISC",
   "dependencies": {
     "syncano": "latest"
