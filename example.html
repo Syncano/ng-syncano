@@ -11,7 +11,7 @@
 <script> // REMEMBER: Replace Syncano User details = apiKey, instance, and class (user details optional)
 var myApp = angular.module('myApp', ['ngSyncano']);
 
-myApp.config(function (syncanoConfigProvider) { // NOTICE: please be aware that only first configuration would be applied
+myApp.config(function (syncanoConfigProvider) { // NOTE: please be aware that only first configuration would be applied
 	syncanoConfigProvider.configure({ // enter Syncano details
 		apiKey: 'MY_PUBLIC_API_KEY',
 		instance: 'MY_INSTANCE'
@@ -19,8 +19,9 @@ myApp.config(function (syncanoConfigProvider) { // NOTICE: please be aware that 
 		// password: 'PASSWORD'
 	});
 
-	// You can also use your account key, but then your API calls in the controllers
+	// You can also use your account key, BUT then your API calls in the controllers
 	// will need to include the .instance('MY_INSTANCE') call AFTER syncano
+
 	// syncanoConfigProvider.configure({
 	//	accountKey: 'MY_ACCOUNT_KEY'
 	// });
@@ -37,7 +38,7 @@ myApp.controller('SyncanoController', function ($scope, syncanoService) {
 		.then(function(res){ // uses promises in case a userKey is needed
 			syncano = res; // set to current Syncano Object
 
-                getList(); // ONLY WORKS if you have permissions set
+                getList(); // ONLY WORKS if you have permissions set correctly
 
                 /* TO REMOVE A USER */
                 //syncanoService.removeSyncanoUser(); // returns string if need be
@@ -61,7 +62,7 @@ myApp.controller('SyncanoController', function ($scope, syncanoService) {
             });
 
 	function getList(){ // can only be used with apiKey/userKey or accountKey
-		syncano.class('CLASS').dataobject().list()
+		syncano.class('CLASS').dataobject().list() // Change CLASS to your class
 			.then(function(res){
 				$scope.dataRetrievedFromSyncano = res.objects;
 			})
