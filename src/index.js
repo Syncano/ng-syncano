@@ -22,6 +22,7 @@ module.exports = angular.module('ngSyncano', [])
                 return syncano.user().login(user)
                     .then(function(res){
                         syncano.config.userKey = res.user_key;
+                        syncano.userDetails = res;
                         return syncano;
                     })
                     .catch(function(err){
@@ -46,6 +47,7 @@ module.exports = angular.module('ngSyncano', [])
                     return syncano.user().login(user)
                         .then(function(res){
                             syncano.config.userKey = res.user_key;
+                            syncano.userDetails = res;
                             return syncano;
                         })
                         .catch(function(err){
@@ -67,6 +69,7 @@ module.exports = angular.module('ngSyncano', [])
 
                 if (syncano.config.userKey){
                     delete syncano.config.userKey;
+                    delete syncano.userDetails;
                 }
 
                 return "You have logged out.";
