@@ -1,6 +1,6 @@
 {
   "name": "ng-syncano",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "description": "An angular wrapper to intereact with the Syncano API.",
   "main": "index.js",
   "repository": {

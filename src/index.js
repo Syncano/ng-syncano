@@ -14,14 +14,16 @@ module.exports = angular.module('ngSyncano', [])
             var syncano = syncanoConfig.Syncano;
             var userConfig = syncanoConfig.User;
             if (userConfig.username && userConfig.password){
+                var User = syncano.User;
+                var query = {instanceName: syncano.instance};
                 var user = {
-                    "username": userConfig.username,
-                    "password": userConfig.password
+                    username: syncano.username,
+                    password: syncano.password
                 };
 
-                return syncano.user().login(user)
+                return User.please().login(query, user)
                     .then(function(res){
-                        syncano.config.userKey = res.user_key;
+                        syncano.userKey = res.user_key;
                         syncano.userDetails = res;
                         return syncano;
                     })
@@ -31,7 +33,7 @@ module.exports = angular.module('ngSyncano', [])
             } else if (userConfig.username || userConfig.password){
                 throw new Error("You forgot either the username or the password!");
             } else {
-                return Promise.resolve(syncano);
+                return syncano;
             }
         }
 
@@ -39,14 +41,17 @@ module.exports = angular.module('ngSyncano', [])
             setSyncanoUser: function(user){
                 var syncano = syncanoConfig.Syncano;
 
-                if (syncano.config.userKey){
-                    delete syncano.config.userKey;
+                if (syncano.userKey){
+                    delete syncano.userKey;
                 }
 
                 if (user.username && user.password){
-                    return syncano.user().login(user)
+                    var User = syncano.User;
+                    var query = {instanceName: syncano.instance};
+                    var credentials = {username: user.username, password: user.password};
+                    return User.please().login(query, credentials)
                         .then(function(res){
-                            syncano.config.userKey = res.user_key;
+                            syncano.userKey = res.user_key;
                             syncano.userDetails = res;
                             return syncano;
                         })
@@ -67,8 +72,8 @@ module.exports = angular.module('ngSyncano', [])
             removeSyncanoUser: function(){
                 var syncano = syncanoConfig.Syncano;
 
-                if (syncano.config.userKey){
-                    delete syncano.config.userKey;
+                if (syncano.userKey){
+                    delete syncano.userKey;
                     delete syncano.userDetails;
                 }
 
