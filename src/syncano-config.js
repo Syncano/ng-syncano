@@ -35,6 +35,7 @@ module.exports = function() {
       });
     };
 
+    /* REMOVED FOR NOW TO ADJUST FOR SCOPE ELIMINATION */
     // auto wrapping, required for scope updating
     // var wrap = function wrap(obj) {
     //   for (var key in obj) {
