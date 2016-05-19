@@ -135,6 +135,8 @@ Look <a href="http://docs.syncano.io/?utm_source=github&utm_medium=readme&utm_ca
 * Kelly Andrews  - [twitter](https://twitter.com/kellyjandrews), [github](https://github.com/kellyjandrews)
 
 ### Change Log
+* **3.0.0** - 2016-03-04
+    * v1.0 Syncano JS library
 * **2.1.0** - 2016-03-04
     * User Profile is returned with UserKey
 * **2.0.0** - 2016-01-22
