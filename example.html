@@ -19,9 +19,7 @@ myApp.config(function (syncanoConfigProvider) { // NOTE: please be aware that on
 		// password: 'PASSWORD'
 	});
 
-	// You can also use your account key, BUT then your API calls in the controllers
-	// will need to include the .instance('MY_INSTANCE') call AFTER syncano
-
+	// You can also use your account key
 	// syncanoConfigProvider.configure({
 	//	accountKey: 'MY_ACCOUNT_KEY'
 	// });
@@ -29,46 +27,32 @@ myApp.config(function (syncanoConfigProvider) { // NOTE: please be aware that on
 
 myApp.controller('SyncanoController', function ($scope, syncanoService) {
 
-	var syncano = null; // will be used for API calls
+	// use .then() if you use a USER in the CONFIG
+	var syncano = syncanoService.getSyncano(); // will be used for Syncano API calls
 
 	$scope.dataRetrievedFromSyncano = null;
 	$scope.error = null;
 
-	syncanoService.getSyncano() // gets the current Syncano object (see config above)
-		.then(function(res){ // uses promises in case a userKey is needed
-			syncano = res; // set to current Syncano Object
+	var DataObject = syncano.DataObject; // initializes a the data functions
+	var list = {instanceName: syncano.instance, className: "CLASS"};
 
-                getList(); // ONLY WORKS if you have permissions set correctly
+	// if you wish to log in and use a USERKEY
+	syncanoService.setSyncanoUser({username: "USERNAME", password: 'PASSWORD'})
+		.then(function (res) {
+			syncano = res; // new Syncano object with userkey
+			getList();
 
-                /* TO REMOVE A USER */
-                //syncanoService.removeSyncanoUser(); // returns string if need be
+			// syncanoService.removeSyncanoUser(); // if you want to remove a user
+		})
+		.catch(function(err){
+			console.log(err);
+		});
 
-                /* TO LOG IN */
-                //var user = {
-                 //"username": "USERNAME",
-                 //"password": "PASSWORD"
-                //};
-                //syncanoService.setSyncanoUser(user)
-                    //.then(function(res){
-                        //syncano = res;
-                        //getList();
-                    //})
-                    //.catch(function(err){
-                        //console.log(err);
-                    //});
-            })
-            .catch(function(err){
-                console.log(err);
-            });
-
-	function getList(){ // can only be used with apiKey/userKey or accountKey
-		syncano.class('CLASS').dataobject().list() // Change CLASS to your class
-			.then(function(res){
-				$scope.dataRetrievedFromSyncano = res.objects;
-			})
-			.catch(function(err){
-				$scope.error = err;
-			});
+	function getList(){ // can only be used with apiKey/userKey or accountKey!!!
+		DataObject.please().list(list).then(function (res) {
+			$scope.dataRetrievedFromSyncano = res;
+			$scope.$apply();
+		});
 	}
 });
 </script>

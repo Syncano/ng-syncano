@@ -35,39 +35,41 @@ module.exports = function() {
       });
     };
 
+    /* REMOVED FOR NOW TO ADJUST FOR SCOPE ELIMINATION */
     // auto wrapping, required for scope updating
-    var wrap = function wrap(obj) {
-      for (var key in obj) {
-        if (typeof obj[key] === 'function') {
-          obj[key] = (function(original) {
-            return function() {
-              var args = Array.prototype.slice.call(arguments, 0);
-              var result = original.apply(obj, args);
-
-              if (isPromise(result)) {
-                result.then(function(data) {
-                  updateScope();
-                  return data;
-                })
-                .catch(function(err) {
-                  updateScope();
-                  throw err;
-                });
-              } else if (result && typeof result === 'object') {
-                wrap(result);
-              }
-
-              return result;
-            };
-          }(obj[key]));
-        }
-      }
-
-      return obj;
-    };
+    // var wrap = function wrap(obj) {
+    //   for (var key in obj) {
+    //     if (typeof obj[key] === 'function') {
+    //       console.log(obj[key]);
+    //       // obj[key] = (function(original) {
+    //       //   return function() {
+    //       //     var args = Array.prototype.slice.call(arguments, 0);
+    //       //     var result = original.apply(obj, args);
+    //       //
+    //       //     if (isPromise(result)) {
+    //       //       result.then(function(data) {
+    //       //         updateScope();
+    //       //         return data;
+    //       //       })
+    //       //       .catch(function(err) {
+    //       //         updateScope();
+    //       //         throw err;
+    //       //       });
+    //       //     } else if (result && typeof result === 'object') {
+    //       //       wrap(result);
+    //       //     }
+    //       //
+    //       //     return result;
+    //       //   };
+    //       // }(obj[key]));
+    //     }
+    //   }
+    //
+    //   return obj;
+    // };
 
     return {
-      "Syncano": wrap(syncano),
+      "Syncano": syncano,
       "User": config
     };
   }];
